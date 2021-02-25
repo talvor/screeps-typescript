@@ -9,25 +9,25 @@ if (!Memory.roles) {
   Memory.roles = [
     {
       name: "Harvester",
-      target: 3,
+      target: 2,
       counter: 0,
       bodyParts: [WORK, CARRY, MOVE]
     },
     {
       name: "Builder",
-      target: 3,
+      target: 0,
       counter: 0,
       bodyParts: [WORK, CARRY, MOVE]
     },
     {
       name: "Upgrader",
-      target: 3,
+      target: 0,
       counter: 0,
       bodyParts: [WORK, CARRY, MOVE]
     },
     {
       name: "Guard",
-      target: 3,
+      target: 0,
       counter: 0,
       bodyParts: [WORK, ATTACK, MOVE]
     }

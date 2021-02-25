@@ -1,3 +1,4 @@
+import { harvestEnergy, upgradeController } from "jobs";
 import { findRandomSource } from "../utils/findTargets";
 
 export const roleUpgrader = {
@@ -14,25 +15,9 @@ export const roleUpgrader = {
     }
 
     if (creep.memory.working) {
-      if (creep.room.controller && creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller, { visualizePathStyle: { stroke: "#ffffff" } });
-      }
+      upgradeController(creep);
     } else {
-      const container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        filter: structure => {
-          return structure.structureType === STRUCTURE_CONTAINER && structure.store[RESOURCE_ENERGY] > 0;
-        }
-      });
-
-      if (container && creep.withdraw(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(container, { visualizePathStyle: { stroke: "#ffaa00" } });
-      } else {
-        const source = findRandomSource(creep);
-
-        if (source && creep.harvest(source) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(source, { visualizePathStyle: { stroke: "#ffaa00" } });
-        }
-      }
+      harvestEnergy(creep);
     }
   }
 };

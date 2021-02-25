@@ -1,4 +1,4 @@
-import { findClosestConstruction, findRandomSource } from "../utils/findTargets";
+import { buildConstruction, harvestEnergy, repairStructure, upgradeController } from "../jobs";
 
 export const roleBuilder = {
   run(creep: Creep): void {
@@ -16,18 +16,15 @@ export const roleBuilder = {
     }
 
     if (creep.memory.working) {
-      const target = findClosestConstruction(creep);
-
-      if (target) {
-        if (creep.build(target) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target, { visualizePathStyle: { stroke: "#ffffff" } });
+      if (!buildConstruction(creep)) {
+        // Cannot build try repair
+        if (!repairStructure(creep)) {
+          // Cannot repair so upgrade
+          upgradeController(creep);
         }
       }
     } else {
-      const source = findRandomSource(creep);
-      if (source && creep.harvest(source) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(source, { visualizePathStyle: { stroke: "#ffaa00" } });
-      }
+      harvestEnergy(creep);
     }
   }
 };

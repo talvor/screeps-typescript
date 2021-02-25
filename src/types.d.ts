@@ -8,6 +8,7 @@ interface CreepMemory {
   target?: string;
   targetSource?: string;
   targetConstruction?: string;
+  targetStructure?: string;
 }
 
 interface Memory {

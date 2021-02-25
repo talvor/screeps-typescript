@@ -36,3 +36,16 @@ export const findRandomSource = (creep: Creep): Source | null => {
 
   return target;
 };
+
+export const findRepairStructure = (creep: Creep): Structure | null => {
+  let target: Structure | null = creep.memory.targetStructure ? Game.getObjectById(creep.memory.targetStructure) : null;
+
+  if (!target) {
+    const targets = creep.room.find(FIND_STRUCTURES);
+    targets.sort((a, b) => a.hits - b.hits);
+    target = targets[0];
+  }
+  creep.memory.targetStructure = target ? target.id : "";
+
+  return target;
+};
